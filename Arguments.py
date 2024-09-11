@@ -54,8 +54,8 @@ def tax(price, region):
         return float(price * 1.2)
     elif region == "asia":
         return float(price * 1.17)
-    elif region == "" or region == "USA":
-        return float(price * 1.15)
+    else:
+        return float(price * 1.1)
 def shipping(price, distance):
     if distance >= 50:
         return float(price + 5)
@@ -67,13 +67,13 @@ def shipping(price, distance):
         return price
 def calculate(price, region, type, distance):
     discount_price = discount(item_price, item_type)
-    tax_price = tax(item_price, item_region)
+    tax_price = tax(item_price - discount_price, item_region)
     shipping_price = shipping(item_price, item_distance)
     final_price = (item_price - discount_price) + tax_price + shipping_price
     return final_price
 item_price = 100
-item_region = input("Enter region: ").lower()
-item_type = input("Enter item category: ").lower()
-item_distance = float(input("Enter distance (in kilometers): "))
+item_region = "USA"
+item_type = "electronics"
+item_distance = 50
 result2 = calculate(item_price, item_region, item_type, item_distance)
 print(result2)
